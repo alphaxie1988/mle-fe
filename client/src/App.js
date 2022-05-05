@@ -43,7 +43,7 @@ function App() {
       <h1>Jieyuan vs Jianlong attempt</h1>
       <BeforeAfterSlider
         before={jieyuan}
-        after={wesley}
+        after={jianlong}
         width={960}
         height={1280}
       />
