@@ -20,6 +20,10 @@
   flex-direction: row;
   align-items:center;
   justify-content:space-between;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 .App-header-left{
   padding: 0px 0px 0px 40px;
@@ -42,6 +46,11 @@
   align-items: center;
 }
 
+.dataTableContainer
+{width: 90%;
+  padding: 30px;
+}
+
 
 input[type=number],input[type=text], select, textarea {
   width: 100%;
@@ -54,7 +63,7 @@ input[type=number],input[type=text], select, textarea {
 }
 
 
-input[type=submit] {
+input[type=submit], button {
   width: 100%;
   background-color: #4CAF50;
   color: white;
@@ -65,11 +74,28 @@ input[type=submit] {
   cursor: pointer;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, button:hover {
   background-color: #45a049;
+}
+button{
+  width: 40%;
+  margin: 10px;
+}
+.redButton{
+  background-color: #e3493b;
+}
+.redButton:hover{
+  background-color: #c93323;
 }
 .formbody{
 max-width: 500px;
+}
+
+.recharts-responsive-container
+{
+  width: 70% !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 

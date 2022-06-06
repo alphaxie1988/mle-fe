@@ -9,8 +9,10 @@
     "multiselect-react-dropdown": "^2.0.22",
     "react": "^18.1.0",
     "react-before-after-slider": "^1.0.4",
+    "react-data-table-component": "^7.5.2",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
