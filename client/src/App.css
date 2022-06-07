@@ -5,13 +5,10 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-
-.App-logo {
   width: auto;
   height: 36px;
 }
+
 .EmployerContainer{
   font-family: 'Open Sans', sans-serif;
   color: #d6008f;
@@ -53,6 +50,20 @@
 }
 .App-link {
   color: #61dafb;
+}
+.menuItem{
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  user-select: none;
+  width:80px
+}
+.menuItem:hover{
+  background-color: #eceff2;
+  cursor: pointer;
+}
+.menuItem.selected{
+  background-color: #eceff2;
 }
 .Content {
   background-color: #eceff2;

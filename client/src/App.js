@@ -39,6 +39,7 @@ function App() {
 
   //Stats Page
   const [statsData, setStatsData] = useState([]);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   //Admin Page
   const [outlierData, setOutlierData] = useState([]);
@@ -100,7 +101,62 @@ function App() {
         }
       });
   };
-
+  const handleStartNewCrawl = () => {
+    if (window.confirm("You sure you want to start crawling?") === true) {
+      setButtonDisabled(true);
+      axios.get("http://127.0.0.1:8080/crawl").then((resp) => {
+        alert(resp.data);
+        setButtonDisabled(false);
+      });
+    } else {
+    }
+  };
+  //    ___                                  _
+  //   / __|___ _ __  _ __  ___ _ _  ___ _ _| |_
+  //  | (__/ _ \ '  \| '_ \/ _ \ ' \/ -_) ' \  _|
+  //   \___\___/_|_|_| .__/\___/_||_\___|_||_\__|
+  //                 |_|
+  const Header = (props) => {
+    return (
+      <header className="App-header">
+        <div className="App-header-left">
+          <img src={logo} className="App-logo" alt="logo" />
+          <span className="EmployerContainer">{props.title}</span>
+        </div>
+        <div className="App-header-right">
+          <div
+            className={
+              "menuItem " +
+              (window.location.pathname === "/stats" && "selected")
+            }
+            onClick={() => (window.location = "/stats")}
+          >
+            Statistics
+          </div>
+          <div
+            className={
+              "menuItem " +
+              (window.location.pathname === "/admin" && "selected")
+            }
+            onClick={() => (window.location = "/admin")}
+          >
+            Admin
+          </div>
+          <div
+            className={
+              "menuItem " +
+              (window.location.pathname === "/predict" && "selected")
+            }
+            onClick={() => (window.location = "/predict")}
+          >
+            Predict
+          </div>
+          <img src="avatar.png" className="Avatar" alt="logo" />
+          {props.userName}
+        </div>
+      </header>
+    );
+  };
   //           _
   //   _ _ ___| |_ _  _ _ _ _ _
   //  | '_/ -_)  _| || | '_| ' \
@@ -114,18 +170,10 @@ function App() {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <div className="App-header-left">
-            <img src={logo} className="App-logo" alt="logo" />
-            <span className="EmployerContainer">
-              Administrator Page - Stats
-            </span>
-          </div>
-          <div className="App-header-right">
-            <img src="avatar.png" className="Avatar" alt="logo" />
-            Admin
-          </div>
-        </header>
+        <Header
+          title="Administrator Page - Statistics"
+          userName="Admin"
+        ></Header>
         <div className="Content">
           <div className="dataTableContainer">
             <h3>R² overtime</h3>
@@ -166,6 +214,15 @@ function App() {
               </LineChart>
             </ResponsiveContainer>
           </div>
+          {!buttonDisabled && (
+            <button
+              disabled={buttonDisabled}
+              className="redButton"
+              onClick={() => handleStartNewCrawl()}
+            >
+              Start New Crawl
+            </button>
+          )}
         </div>
       </div>
     );
@@ -177,18 +234,7 @@ function App() {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <div className="App-header-left">
-            <img src={logo} className="App-logo" alt="logo" />
-            <span className="EmployerContainer">
-              Administrator Page - Review
-            </span>
-          </div>
-          <div className="App-header-right">
-            <img src="avatar.png" className="Avatar" alt="logo" />
-            Admin
-          </div>
-        </header>
+        <Header title=" Administrator Page - Review" userName="Admin"></Header>
         <div className="Content">
           <div className="dataTableContainer">
             <DataTable
@@ -257,17 +303,7 @@ function App() {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <div className="App-header-left">
-            <img src={logo} className="App-logo" alt="logo" />
-            <span className="EmployerContainer">Employer</span>
-          </div>
-
-          <div className="App-header-right">
-            <img src="avatar.png" className="Avatar" alt="logo" />
-            Testing Account
-          </div>
-        </header>
+        <Header title="Employer" userName="Test Employer"></Header>
         <div className="Content">
           <div className="formbody">
             <form action="#">
