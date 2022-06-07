@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "./logo.png";
 import "./App.css";
 import MultiSelect from "multiselect-react-dropdown";
-import { skillsmap, categorymap, positionlevelmap } from "./typeahead";
+import { skillsmap, categorymap, positionlevelmap, typemap } from "./typeahead";
 import DataTable from "react-data-table-component";
 import {
   LineChart,
@@ -23,6 +23,7 @@ function App() {
   const [jobSkills, setJobSkills] = useState([]);
   const [numberofvacancies, setNumberofvacancies] = useState(1);
   const [jobCategory, setJobCategory] = useState([]);
+  const [jobType, setJobType] = useState([]);
   const [jobPositionLevels, setPositionLevels] = useState([]);
   const [minimumYOE, setMinimumYOE] = useState(0);
   const [minimumSal, setMinimumSal] = useState(0);
@@ -32,6 +33,7 @@ function App() {
   const [data, setData] = useState([]);
   const [pMinSal, setPMinSal] = useState([]);
   const [pMaxSal, setPMaxSal] = useState([]);
+
   useEffect(() => {
     if (window.location.pathname === "/stats") {
       // Update the document title using the browser API
@@ -42,11 +44,12 @@ function App() {
         });
     } else if (window.location.pathname === "/admin") {
       if (!!data)
-        axios.get("http://127.0.0.1:8080/data").then((resp) => {
+        axios.get("http://127.0.0.1:8080/outlier").then((resp) => {
           console.log(resp.data);
           setData(resp.data);
         });
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -58,16 +61,16 @@ function App() {
   }, [minimumYOE]);
   const columns = [
     {
-      name: "Job Title",
-      selector: (row) => row.jobTitle,
+      name: "Title",
+      selector: (row) => row.title,
     },
     {
       name: "Description",
-      selector: (row) => row.jobDescription,
+      selector: (row) => row.description,
     },
     {
       name: "Skills",
-      selector: (row) => row.jobSkills,
+      selector: (row) => row.skills,
     },
     {
       name: "Number Of Vacancies",
@@ -75,35 +78,38 @@ function App() {
     },
     {
       name: "Category",
-      selector: (row) => row.jobCategory,
+      selector: (row) => row.categories,
     },
     {
       name: "Position Levels",
-      selector: (row) => row.jobPositionLevels,
+      selector: (row) => row.positionlevels,
     },
     {
       name: "Minimum Salary",
-      selector: (row) => row.minimumSal,
+      selector: (row) => row.minsalary,
     },
     {
       name: "Maximum Salary",
-      selector: (row) => row.maximumSal,
+      selector: (row) => row.maxsalary,
     },
     {
       name: "Remarks",
-      selector: (row) => row.remark,
+      selector: (row) => row.remarks.slice(0, -1),
     },
   ];
 
-  const handleChange = ({ selectedRows }) => {
+  const handleCheckbox = ({ selectedRows }) => {
     // You can set state or dispatch with something like Redux so we can use the retrieved data
     console.log("Selected Rows: ", selectedRows);
-    setSelectedRows(selectedRows.map((a) => a.id));
+    setSelectedRows(selectedRows.map((a) => a.uuid));
   };
 
-  const handleSetAddToTrain = (selectedRows) => {
+  const handleSetAddToTrainOrHide = (selectedRows, action) => {
     axios
-      .put("http://127.0.0.1:8080/data", { payload: selectedRows })
+      .put("http://127.0.0.1:8080/outlier", {
+        payload: selectedRows,
+        action: action,
+      })
       .then((resp) => {
         console.log(resp.data);
         alert(resp.data.success);
@@ -116,9 +122,14 @@ function App() {
         <header className="App-header">
           <div className="App-header-left">
             <img src={logo} className="App-logo" alt="logo" />
-            <span>Administrator Page - Stats</span>
+            <span className="EmployerContainer">
+              Administrator Page - Stats
+            </span>
           </div>
-          <div className="App-header-right">Admin</div>
+          <div className="App-header-right">
+            <img src="avatar.png" className="Avatar" alt="logo" />
+            Admin
+          </div>
         </header>
         <div className="Content">
           <div className="dataTableContainer">
@@ -169,9 +180,14 @@ function App() {
         <header className="App-header">
           <div className="App-header-left">
             <img src={logo} className="App-logo" alt="logo" />
-            <span>Administrator Page - Review</span>
+            <span className="EmployerContainer">
+              Administrator Page - Review
+            </span>
           </div>
-          <div className="App-header-right">Admin</div>
+          <div className="App-header-right">
+            <img src="avatar.png" className="Avatar" alt="logo" />
+            Admin
+          </div>
         </header>
         <div className="Content">
           <div className="dataTableContainer">
@@ -179,15 +195,19 @@ function App() {
               columns={columns}
               data={data}
               selectableRows
-              onSelectedRowsChange={handleChange}
+              onSelectedRowsChange={handleCheckbox}
             />
             <button
               className="redButton"
-              onClick={() => handleSetAddToTrain(selectedRows)}
+              onClick={() => handleSetAddToTrainOrHide(selectedRows, "Add")}
             >
               Add to Training
             </button>
-            <button>Hide from Table</button>
+            <button
+              onClick={() => handleSetAddToTrainOrHide(selectedRows, "Hide")}
+            >
+              Hide from Table
+            </button>
           </div>
         </div>
       </div>
@@ -198,9 +218,13 @@ function App() {
         <header className="App-header">
           <div className="App-header-left">
             <img src={logo} className="App-logo" alt="logo" />
-            <span>Employer</span>
+            <span className="EmployerContainer">Employer</span>
           </div>
-          <div className="App-header-right">Testing Account</div>
+
+          <div className="App-header-right">
+            <img src="avatar.png" className="Avatar" alt="logo" />
+            Testing Account
+          </div>
         </header>
         <div className="Content">
           <div className="formbody">
@@ -244,6 +268,16 @@ function App() {
                 selectedValues={jobCategory}
                 onSelect={setJobCategory}
                 onRemove={setJobCategory}
+              ></MultiSelect>
+              <label>Job Type</label>
+              <MultiSelect
+                type="text"
+                options={typemap}
+                displayValue="label"
+                placeholder="Add more Job Type"
+                selectedValues={jobType}
+                onSelect={setJobType}
+                onRemove={setJobType}
               ></MultiSelect>
 
               <label>Position Level</label>
