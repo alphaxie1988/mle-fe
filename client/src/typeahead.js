@@ -16203,3 +16203,16 @@ export const categorymap = category.map((a) => {
 export const positionlevelmap = positionlevel.map((a) => {
   return { label: a, value: a };
 });
+
+export const typemap = [
+  "Contract",
+  "Permanent",
+  "Freelance",
+  "Temporary",
+  "Part Time",
+  "Full Time",
+  "Flexi-work",
+  "Internship/Attachment",
+].map((a) => {
+  return { label: a, value: a };
+});
