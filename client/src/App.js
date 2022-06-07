@@ -264,12 +264,21 @@ function App() {
                   selector: (row) => row.positionlevels,
                 },
                 {
-                  name: "Minimum Salary",
-                  selector: (row) => row.minsalary,
+                  name: "Employment Types",
+                  selector: (row) => row.employmenttypes,
                 },
                 {
-                  name: "Maximum Salary",
-                  selector: (row) => row.maxsalary,
+                  name: "Posted Company",
+                  selector: (row) => row.postedcompany,
+                },
+                {
+                  name: "Salary",
+                  selector: (row) =>
+                    "($" +
+                    row.minsalary.toLocaleString() +
+                    " - $" +
+                    row.maxsalary.toLocaleString() +
+                    ")",
                 },
                 {
                   name: "Remarks",
