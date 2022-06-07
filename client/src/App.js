@@ -4,6 +4,7 @@ import "./App.css";
 import MultiSelect from "multiselect-react-dropdown";
 import { skillsmap, categorymap, positionlevelmap, typemap } from "./typeahead";
 import DataTable from "react-data-table-component";
+import axios from "axios";
 import {
   LineChart,
   ResponsiveContainer,
@@ -15,9 +16,13 @@ import {
   CartesianGrid,
 } from "recharts";
 
-import axios from "axios";
-
 function App() {
+  //                ___ _        _
+  //   _  _ ___ ___/ __| |_ __ _| |_ ___
+  //  | || (_-</ -_)__ \  _/ _` |  _/ -_)
+  //   \_,_/__/\___|___/\__\__,_|\__\___|
+
+  //Predict Page
   const [jobtitle, setJobtitle] = useState();
   const [jobDescription, setJobDescription] = useState();
   const [jobSkills, setJobSkills] = useState([]);
@@ -28,19 +33,29 @@ function App() {
   const [minimumYOE, setMinimumYOE] = useState(0);
   const [minimumSal, setMinimumSal] = useState(0);
   const [maximumSal, setMaximumSal] = useState(10000);
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [pdata, setPData] = useState([]);
-  const [outlierData, setOutlierData] = useState([]);
+  //Predict
   const [pMinSal, setPMinSal] = useState([]);
   const [pMaxSal, setPMaxSal] = useState([]);
+
+  //Stats Page
+  const [statsData, setStatsData] = useState([]);
+
+  //Admin Page
+  const [outlierData, setOutlierData] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  //                ___  __  __        _
+  //   _  _ ___ ___| __|/ _|/ _|___ __| |_
+  //  | || (_-</ -_) _||  _|  _/ -_) _|  _|
+  //   \_,_/__/\___|___|_| |_| \___\__|\__|
 
   useEffect(() => {
     if (window.location.pathname === "/stats") {
       // Update the document title using the browser API
-      if (!!pdata)
+      if (!!statsData)
         axios.get("http://127.0.0.1:8080/stats").then((resp) => {
           console.log(resp.data);
-          setPData(resp.data);
+          setStatsData(resp.data);
         });
     } else if (window.location.pathname === "/admin") {
       if (!!outlierData)
@@ -58,44 +73,11 @@ function App() {
       setPMaxSal(resp.data.pMaxSal);
     });
   }, [minimumYOE]);
-  const columns = [
-    {
-      name: "Title",
-      selector: (row) => row.title,
-    },
-    {
-      name: "Description",
-      selector: (row) => row.description,
-    },
-    {
-      name: "Skills",
-      selector: (row) => row.skills,
-    },
-    {
-      name: "Number Of Vacancies",
-      selector: (row) => row.numberofvacancies,
-    },
-    {
-      name: "Category",
-      selector: (row) => row.categories,
-    },
-    {
-      name: "Position Levels",
-      selector: (row) => row.positionlevels,
-    },
-    {
-      name: "Minimum Salary",
-      selector: (row) => row.minsalary,
-    },
-    {
-      name: "Maximum Salary",
-      selector: (row) => row.maxsalary,
-    },
-    {
-      name: "Remarks",
-      selector: (row) => row.remarks.slice(0, -1),
-    },
-  ];
+
+  //                   _   _  _              _ _
+  //   _____ _____ _ _| |_| || |__ _ _ _  __| | |___ _ _
+  //  / -_) V / -_) ' \  _| __ / _` | ' \/ _` | / -_) '_|
+  //  \___|\_/\___|_||_\__|_||_\__,_|_||_\__,_|_\___|_|
 
   const handleCheckbox = ({ selectedRows }) => {
     // You can set state or dispatch with something like Redux so we can use the retrieved data
@@ -119,7 +101,17 @@ function App() {
       });
   };
 
+  //           _
+  //   _ _ ___| |_ _  _ _ _ _ _
+  //  | '_/ -_)  _| || | '_| ' \
+  //  |_| \___|\__|\_,_|_| |_||_|
+
   if (window.location.pathname === "/stats") {
+    // ___ _        _
+    // / __| |_ __ _| |_ ___
+    // \__ \  _/ _` |  _(_-<
+    // |___/\__\__,_|\__/__/
+
     return (
       <div className="App">
         <header className="App-header">
@@ -138,7 +130,7 @@ function App() {
           <div className="dataTableContainer">
             <h3>R² overtime</h3>
             <ResponsiveContainer width="100%" aspect={3}>
-              <LineChart data={pdata.rsquarevalue}>
+              <LineChart data={statsData.rsquarevalue}>
                 <CartesianGrid />
                 <XAxis dataKey="name" interval={"preserveStartEnd"} />
                 <YAxis></YAxis>
@@ -153,7 +145,7 @@ function App() {
             </ResponsiveContainer>
             <h3>RSME overtime</h3>{" "}
             <ResponsiveContainer width="100%" aspect={3}>
-              <LineChart data={pdata.RSME}>
+              <LineChart data={statsData.RSME}>
                 <CartesianGrid />
                 <XAxis dataKey="name" interval={"preserveStartEnd"} />
                 <YAxis></YAxis>
@@ -164,7 +156,7 @@ function App() {
             </ResponsiveContainer>
             <h3>New Job Overtime</h3>
             <ResponsiveContainer width="100%" aspect={3}>
-              <LineChart data={pdata.newjob}>
+              <LineChart data={statsData.newjob}>
                 <CartesianGrid />
                 <XAxis dataKey="name" interval={"preserveStartEnd"} />
                 <YAxis></YAxis>
@@ -178,6 +170,11 @@ function App() {
       </div>
     );
   } else if (window.location.pathname === "/admin") {
+    //    _      _       _
+    //   /_\  __| |_ __ (_)_ _
+    //  / _ \/ _` | '  \| | ' \
+    // /_/ \_\__,_|_|_|_|_|_||_|
+
     return (
       <div className="App">
         <header className="App-header">
@@ -195,7 +192,44 @@ function App() {
         <div className="Content">
           <div className="dataTableContainer">
             <DataTable
-              columns={columns}
+              columns={[
+                {
+                  name: "Title",
+                  selector: (row) => row.title,
+                },
+                {
+                  name: "Description",
+                  selector: (row) => row.description,
+                },
+                {
+                  name: "Skills",
+                  selector: (row) => row.skills,
+                },
+                {
+                  name: "Number Of Vacancies",
+                  selector: (row) => row.numberofvacancies,
+                },
+                {
+                  name: "Category",
+                  selector: (row) => row.categories,
+                },
+                {
+                  name: "Position Levels",
+                  selector: (row) => row.positionlevels,
+                },
+                {
+                  name: "Minimum Salary",
+                  selector: (row) => row.minsalary,
+                },
+                {
+                  name: "Maximum Salary",
+                  selector: (row) => row.maxsalary,
+                },
+                {
+                  name: "Remarks",
+                  selector: (row) => row.remarks.slice(0, -1),
+                },
+              ]}
               data={outlierData}
               selectableRows
               onSelectedRowsChange={handleCheckbox}
@@ -216,6 +250,11 @@ function App() {
       </div>
     );
   } else {
+    //  ___            _ _    _
+    // | _ \_ _ ___ __| (_)__| |_
+    // |  _/ '_/ -_) _` | / _|  _|
+    // |_| |_| \___\__,_|_\__|\__|
+
     return (
       <div className="App">
         <header className="App-header">
