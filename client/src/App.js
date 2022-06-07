@@ -30,7 +30,7 @@ function App() {
   const [maximumSal, setMaximumSal] = useState(10000);
   const [selectedRows, setSelectedRows] = useState([]);
   const [pdata, setPData] = useState([]);
-  const [data, setData] = useState([]);
+  const [outlierData, setOutlierData] = useState([]);
   const [pMinSal, setPMinSal] = useState([]);
   const [pMaxSal, setPMaxSal] = useState([]);
 
@@ -43,10 +43,9 @@ function App() {
           setPData(resp.data);
         });
     } else if (window.location.pathname === "/admin") {
-      if (!!data)
+      if (!!outlierData)
         axios.get("http://127.0.0.1:8080/outlier").then((resp) => {
-          console.log(resp.data);
-          setData(resp.data);
+          setOutlierData(resp.data);
         });
     }
     // eslint-disable-next-line
@@ -112,7 +111,11 @@ function App() {
       })
       .then((resp) => {
         console.log(resp.data);
-        alert(resp.data.success);
+        if (resp.data.success) {
+          axios.get("http://127.0.0.1:8080/outlier").then((resp) => {
+            setOutlierData(resp.data);
+          });
+        }
       });
   };
 
@@ -193,7 +196,7 @@ function App() {
           <div className="dataTableContainer">
             <DataTable
               columns={columns}
-              data={data}
+              data={outlierData}
               selectableRows
               onSelectedRowsChange={handleCheckbox}
             />
