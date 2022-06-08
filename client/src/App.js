@@ -54,25 +54,43 @@ function App() {
     if (window.location.pathname === "/stats") {
       // Update the document title using the browser API
       if (!!statsData)
-        axios.get("http://127.0.0.1:8080/stats").then((resp) => {
-          console.log(resp.data);
-          setStatsData(resp.data);
-        });
+        axios
+          .get(
+            process.env.BACKEND_URL
+              ? process.env.BACKEND_URL
+              : "http://127.0.0.1:8080" + "/stats"
+          )
+          .then((resp) => {
+            console.log(resp.data);
+            setStatsData(resp.data);
+          });
     } else if (window.location.pathname === "/admin") {
       if (!!outlierData)
-        axios.get("http://127.0.0.1:8080/outlier").then((resp) => {
-          setOutlierData(resp.data);
-        });
+        axios
+          .get(
+            process.env.BACKEND_URL
+              ? process.env.BACKEND_URL
+              : "http://127.0.0.1:8080" + "/outlier"
+          )
+          .then((resp) => {
+            setOutlierData(resp.data);
+          });
     }
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8080/predict").then((resp) => {
-      console.log(resp.data);
-      setPMinSal(resp.data.pMinSal);
-      setPMaxSal(resp.data.pMaxSal);
-    });
+    axios
+      .get(
+        process.env.BACKEND_URL
+          ? process.env.BACKEND_URL
+          : "http://127.0.0.1:8080" + "/predict"
+      )
+      .then((resp) => {
+        console.log(resp.data);
+        setPMinSal(resp.data.pMinSal);
+        setPMaxSal(resp.data.pMaxSal);
+      });
   }, [minimumYOE]);
 
   //                   _   _  _              _ _
@@ -88,26 +106,43 @@ function App() {
 
   const handleSetAddToTrainOrHide = (selectedRows, action) => {
     axios
-      .put("http://127.0.0.1:8080/outlier", {
-        payload: selectedRows,
-        action: action,
-      })
+      .put(
+        process.env.BACKEND_URL
+          ? process.env.BACKEND_URL
+          : "http://127.0.0.1:8080" + "/outlier",
+        {
+          payload: selectedRows,
+          action: action,
+        }
+      )
       .then((resp) => {
         console.log(resp.data);
         if (resp.data.success) {
-          axios.get("http://127.0.0.1:8080/outlier").then((resp) => {
-            setOutlierData(resp.data);
-          });
+          axios
+            .get(
+              process.env.BACKEND_URL
+                ? process.env.BACKEND_URL
+                : "http://127.0.0.1:8080" + "/outlier"
+            )
+            .then((resp) => {
+              setOutlierData(resp.data);
+            });
         }
       });
   };
   const handleStartNewCrawl = () => {
     if (window.confirm("You sure you want to start crawling?") === true) {
       setButtonDisabled(true);
-      axios.get("http://127.0.0.1:8080/crawl").then((resp) => {
-        alert(resp.data);
-        setButtonDisabled(false);
-      });
+      axios
+        .get(
+          process.env.BACKEND_URL
+            ? process.env.BACKEND_URL
+            : "http://127.0.0.1:8080" + "/crawl"
+        )
+        .then((resp) => {
+          alert(resp.data);
+          setButtonDisabled(false);
+        });
     } else {
     }
   };
