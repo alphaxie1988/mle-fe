@@ -51,6 +51,7 @@ function App() {
   //   \_,_/__/\___|___|_| |_| \___\__|\__|
 
   useEffect(() => {
+    console.log(process.env);
     if (window.location.pathname === "/stats") {
       // Update the document title using the browser API
       if (!!statsData)
