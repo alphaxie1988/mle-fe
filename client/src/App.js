@@ -58,8 +58,8 @@ function App() {
         axios
           .get(
             `${
-              process.env.BACKEND_URL
-                ? process.env.BACKEND_URL
+              process.env.NODE_ENV === "production"
+                ? "https://mle-be-zolecwvnzq-uc.a.run.app"
                 : "http://127.0.0.1:8080"
             }/stats`
           )
@@ -72,8 +72,8 @@ function App() {
         axios
           .get(
             `${
-              process.env.BACKEND_URL
-                ? process.env.BACKEND_URL
+              process.env.NODE_ENV === "production"
+                ? "https://mle-be-zolecwvnzq-uc.a.run.app"
                 : "http://127.0.0.1:8080"
             }/outlier`
           )
@@ -88,8 +88,8 @@ function App() {
     axios
       .get(
         `${
-          process.env.BACKEND_URL
-            ? process.env.BACKEND_URL
+          process.env.NODE_ENV === "production"
+            ? "https://mle-be-zolecwvnzq-uc.a.run.app"
             : "http://127.0.0.1:8080"
         }/predict`
       )
@@ -115,8 +115,8 @@ function App() {
     axios
       .put(
         `${
-          process.env.BACKEND_URL
-            ? process.env.BACKEND_URL
+          process.env.NODE_ENV === "production"
+            ? "https://mle-be-zolecwvnzq-uc.a.run.app"
             : "http://127.0.0.1:8080"
         }/outlier`,
         {
@@ -130,8 +130,8 @@ function App() {
           axios
             .get(
               `${
-                process.env.BACKEND_URL
-                  ? process.env.BACKEND_URL
+                process.env.NODE_ENV === "production"
+                  ? "https://mle-be-zolecwvnzq-uc.a.run.app"
                   : "http://127.0.0.1:8080"
               }/outlier`
             )
@@ -147,8 +147,8 @@ function App() {
       axios
         .get(
           `${
-            process.env.BACKEND_URL
-              ? process.env.BACKEND_URL
+            process.env.NODE_ENV === "production"
+              ? "https://mle-be-zolecwvnzq-uc.a.run.app"
               : "http://127.0.0.1:8080"
           }/crawl`
         )
