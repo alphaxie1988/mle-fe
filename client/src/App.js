@@ -56,9 +56,11 @@ function App() {
       if (!!statsData)
         axios
           .get(
-            process.env.BACKEND_URL
-              ? process.env.BACKEND_URL
-              : "http://127.0.0.1:8080" + "/stats"
+            `${
+              process.env.BACKEND_URL
+                ? process.env.BACKEND_URL
+                : "http://127.0.0.1:8080"
+            }/stats`
           )
           .then((resp) => {
             console.log(resp.data);
@@ -68,9 +70,11 @@ function App() {
       if (!!outlierData)
         axios
           .get(
-            process.env.BACKEND_URL
-              ? process.env.BACKEND_URL
-              : "http://127.0.0.1:8080" + "/outlier"
+            `${
+              process.env.BACKEND_URL
+                ? process.env.BACKEND_URL
+                : "http://127.0.0.1:8080"
+            }/outlier`
           )
           .then((resp) => {
             setOutlierData(resp.data);
@@ -82,9 +86,11 @@ function App() {
   useEffect(() => {
     axios
       .get(
-        process.env.BACKEND_URL
-          ? process.env.BACKEND_URL
-          : "http://127.0.0.1:8080" + "/predict"
+        `${
+          process.env.BACKEND_URL
+            ? process.env.BACKEND_URL
+            : "http://127.0.0.1:8080"
+        }/predict`
       )
       .then((resp) => {
         console.log(resp.data);
@@ -107,9 +113,11 @@ function App() {
   const handleSetAddToTrainOrHide = (selectedRows, action) => {
     axios
       .put(
-        process.env.BACKEND_URL
-          ? process.env.BACKEND_URL
-          : "http://127.0.0.1:8080" + "/outlier",
+        `${
+          process.env.BACKEND_URL
+            ? process.env.BACKEND_URL
+            : "http://127.0.0.1:8080"
+        }/outlier`,
         {
           payload: selectedRows,
           action: action,
@@ -120,9 +128,11 @@ function App() {
         if (resp.data.success) {
           axios
             .get(
-              process.env.BACKEND_URL
-                ? process.env.BACKEND_URL
-                : "http://127.0.0.1:8080" + "/outlier"
+              `${
+                process.env.BACKEND_URL
+                  ? process.env.BACKEND_URL
+                  : "http://127.0.0.1:8080"
+              }/outlier`
             )
             .then((resp) => {
               setOutlierData(resp.data);
@@ -135,9 +145,11 @@ function App() {
       setButtonDisabled(true);
       axios
         .get(
-          process.env.BACKEND_URL
-            ? process.env.BACKEND_URL
-            : "http://127.0.0.1:8080" + "/crawl"
+          `${
+            process.env.BACKEND_URL
+              ? process.env.BACKEND_URL
+              : "http://127.0.0.1:8080"
+          }/crawl`
         )
         .then((resp) => {
           alert(resp.data);
