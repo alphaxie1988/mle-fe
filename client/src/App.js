@@ -16,6 +16,24 @@ import {
   CartesianGrid,
 } from "recharts";
 
+const productionFrontendURL = "https://mle-fe-zolecwvnzq-uc.a.run.app/";
+const productionBackendURL = "https://mle-be-zolecwvnzq-uc.a.run.app";
+const stagingFrontendURL = "https://mle-festaging-zolecwvnzq-uc.a.run.app/";
+const stagingBackendURL = "https://mle-bestaging-zolecwvnzq-uc.a.run.app/";
+const developmentFrontendURL = "http://127.0.0.1:3000";
+const developmentBackendURL = "http://127.0.0.1:8080";
+
+const getBackendURL = () => {
+  if (productionFrontendURL.indexOf(window.location.hostname) !== -1) {
+    return productionBackendURL;
+  }
+  if (stagingFrontendURL.indexOf(window.location.hostname) !== -1) {
+    return stagingBackendURL;
+  }
+  if (developmentFrontendURL.indexOf(window.location.hostname) !== -1) {
+    return developmentBackendURL;
+  }
+};
 function App() {
   //                ___ _        _
   //   _  _ ___ ___/ __| |_ __ _| |_ ___
@@ -51,53 +69,26 @@ function App() {
   //   \_,_/__/\___|___|_| |_| \___\__|\__|
 
   useEffect(() => {
-    console.log(process.env);
     if (window.location.pathname === "/stats") {
       // Update the document title using the browser API
       if (!!statsData)
-        axios
-          .get(
-            `${
-              process.env.NODE_ENV === "production"
-                ? "https://mle-be-zolecwvnzq-uc.a.run.app"
-                : "http://127.0.0.1:8080"
-            }/stats`
-          )
-          .then((resp) => {
-            console.log(resp.data);
-            setStatsData(resp.data);
-          });
+        axios.get(`${getBackendURL()}/stats`).then((resp) => {
+          setStatsData(resp.data);
+        });
     } else if (window.location.pathname === "/admin") {
       if (!!outlierData)
-        axios
-          .get(
-            `${
-              process.env.NODE_ENV === "production"
-                ? "https://mle-be-zolecwvnzq-uc.a.run.app"
-                : "http://127.0.0.1:8080"
-            }/outlier`
-          )
-          .then((resp) => {
-            setOutlierData(resp.data);
-          });
+        axios.get(`${getBackendURL()}/outlier`).then((resp) => {
+          setOutlierData(resp.data);
+        });
     }
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    axios
-      .get(
-        `${
-          process.env.NODE_ENV === "production"
-            ? "https://mle-be-zolecwvnzq-uc.a.run.app"
-            : "http://127.0.0.1:8080"
-        }/predict`
-      )
-      .then((resp) => {
-        console.log(resp.data);
-        setPMinSal(resp.data.pMinSal);
-        setPMaxSal(resp.data.pMaxSal);
-      });
+    axios.get(`${getBackendURL()}/predict`).then((resp) => {
+      setPMinSal(resp.data.pMinSal);
+      setPMaxSal(resp.data.pMaxSal);
+    });
   }, [minimumYOE]);
 
   //                   _   _  _              _ _
@@ -107,55 +98,30 @@ function App() {
 
   const handleCheckbox = ({ selectedRows }) => {
     // You can set state or dispatch with something like Redux so we can use the retrieved data
-    console.log("Selected Rows: ", selectedRows);
     setSelectedRows(selectedRows.map((a) => a.uuid));
   };
 
   const handleSetAddToTrainOrHide = (selectedRows, action) => {
     axios
-      .put(
-        `${
-          process.env.NODE_ENV === "production"
-            ? "https://mle-be-zolecwvnzq-uc.a.run.app"
-            : "http://127.0.0.1:8080"
-        }/outlier`,
-        {
-          payload: selectedRows,
-          action: action,
-        }
-      )
+      .put(`${getBackendURL()}/outlier`, {
+        payload: selectedRows,
+        action: action,
+      })
       .then((resp) => {
-        console.log(resp.data);
         if (resp.data.success) {
-          axios
-            .get(
-              `${
-                process.env.NODE_ENV === "production"
-                  ? "https://mle-be-zolecwvnzq-uc.a.run.app"
-                  : "http://127.0.0.1:8080"
-              }/outlier`
-            )
-            .then((resp) => {
-              setOutlierData(resp.data);
-            });
+          axios.get(`${getBackendURL()}/outlier`).then((resp) => {
+            setOutlierData(resp.data);
+          });
         }
       });
   };
   const handleStartNewCrawl = () => {
     if (window.confirm("You sure you want to start crawling?") === true) {
       setButtonDisabled(true);
-      axios
-        .get(
-          `${
-            process.env.NODE_ENV === "production"
-              ? "https://mle-be-zolecwvnzq-uc.a.run.app"
-              : "http://127.0.0.1:8080"
-          }/crawl`
-        )
-        .then((resp) => {
-          alert(resp.data);
-          setButtonDisabled(false);
-        });
+      axios.get(`${getBackendURL()}/crawl`).then((resp) => {
+        alert(resp.data);
+        setButtonDisabled(false);
+      });
     } else {
     }
   };
@@ -170,6 +136,12 @@ function App() {
         <div className="App-header-left">
           <img src={logo} className="App-logo" alt="logo" />
           <span className="EmployerContainer">{props.title}</span>
+          {stagingFrontendURL.indexOf(window.location.hostname) !== -1 && (
+            <span className="EmployerContainer">STAGING</span>
+          )}
+          {developmentFrontendURL.indexOf(window.location.hostname) !== -1 && (
+            <span className="EmployerContainer">DEVELOPMENT</span>
+          )}
         </div>
         <div className="App-header-right">
           <div
