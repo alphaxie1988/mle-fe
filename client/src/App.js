@@ -85,11 +85,22 @@ function App() {
   }, []);
 
   useEffect(() => {
-    axios.get(`${getBackendURL()}/predict`).then((resp) => {
-      setPMinSal(resp.data.pMinSal);
-      setPMaxSal(resp.data.pMaxSal);
-    });
-  }, [minimumYOE]);
+    axios
+      .post(`${getBackendURL()}/predict`, {
+        jobtitle: jobtitle,
+        jobDescription: jobDescription,
+        jobSkills: jobSkills,
+        numberofvacancies: numberofvacancies,
+        jobCategory: jobCategory,
+        jobType: jobType,
+        jobPositionLevels: jobPositionLevels,
+        minimumYOE: minimumYOE,
+      })
+      .then((resp) => {
+        setPMinSal(resp.data.pMinSal);
+        setPMaxSal(resp.data.pMaxSal);
+      }); // eslint-disable-next-line
+  }, [minimumYOE, jobPositionLevels, numberofvacancies, jobSkills]);
 
   //                   _   _  _              _ _
   //   _____ _____ _ _| |_| || |__ _ _ _  __| | |___ _ _
