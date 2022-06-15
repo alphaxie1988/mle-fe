@@ -100,7 +100,7 @@ function App() {
         setPMinSal(resp.data.pMinSal);
         setPMaxSal(resp.data.pMaxSal);
       }); // eslint-disable-next-line
-  }, [minimumYOE, jobPositionLevels, numberofvacancies, jobSkills]);
+  }, [minimumYOE, jobPositionLevels, numberofvacancies, jobCategory]);
 
   //                   _   _  _              _ _
   //   _____ _____ _ _| |_| || |__ _ _ _  __| | |___ _ _
