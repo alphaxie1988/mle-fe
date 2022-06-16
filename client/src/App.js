@@ -291,25 +291,27 @@ function App() {
                 {
                   name: "Title",
                   selector: (row) => row.title,
-                  width: "180px",
+                  width: "260px",
                 },
                 {
-                  name: "Vacancies",
+                  name: "Vac.",
                   selector: (row) => row.numberofvacancies,
-                  width: "80px",
+                  width: "50px",
                 },
                 {
                   name: "Category",
                   selector: (row) => row.categories,
+                  width: "250px",
                 },
                 {
                   name: "Position Levels",
                   selector: (row) => row.positionlevels,
-                  width: "150px",
+                  width: "180px",
                 },
                 {
                   name: "Posted Company",
                   selector: (row) => row.postedcompany,
+                  width: "250px",
                 },
                 {
                   name: "Salary",
