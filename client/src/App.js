@@ -258,6 +258,11 @@ function App() {
               </LineChart>
             </ResponsiveContainer>
           </div>
+          <iframe
+            src="tableau.html"
+            title="tableau"
+            style={{ width: "95%", height: "600px" }}
+          ></iframe>
           {!buttonDisabled && (
             <button
               disabled={buttonDisabled}
