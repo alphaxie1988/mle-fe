@@ -128,3 +128,8 @@ max-width: 500px;
 .search-wrapper{
   background-color: white;
 }
+
+.spinner{
+  width:15px;
+  display: inline;
+}

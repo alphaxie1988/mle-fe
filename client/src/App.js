@@ -20,8 +20,9 @@ const productionFrontendURL = "https://mle-fe-zolecwvnzq-uc.a.run.app/";
 const productionBackendURL = "https://mle-be-zolecwvnzq-uc.a.run.app";
 const stagingFrontendURL = "https://mle-festaging-zolecwvnzq-uc.a.run.app/";
 const stagingBackendURL = "https://mle-bestaging-zolecwvnzq-uc.a.run.app/";
-const developmentFrontendURL = "http://127.0.0.1:3000";
-const developmentBackendURL = "http://127.0.0.1:8080";
+const developmentFrontendURL1 = "http://localhost:3000";
+const developmentFrontendURL2 = "http://127.0.0.1:3000";
+const developmentBackendURL = "http://localhost:8080";
 
 const getBackendURL = () => {
   if (productionFrontendURL.indexOf(window.location.hostname) !== -1) {
@@ -30,7 +31,10 @@ const getBackendURL = () => {
   if (stagingFrontendURL.indexOf(window.location.hostname) !== -1) {
     return stagingBackendURL;
   }
-  if (developmentFrontendURL.indexOf(window.location.hostname) !== -1) {
+  if (
+    developmentFrontendURL1.indexOf(window.location.hostname) !== -1 ||
+    developmentFrontendURL2.indexOf(window.location.hostname) !== -1
+  ) {
     return developmentBackendURL;
   }
 };
@@ -54,6 +58,7 @@ function App() {
   //Predict
   const [pMinSal, setPMinSal] = useState([]);
   const [pMaxSal, setPMaxSal] = useState([]);
+  const [displaySpinner, setDisplaySpinner] = useState(true);
 
   //Stats Page
   const [statsData, setStatsData] = useState([]);
@@ -85,6 +90,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setDisplaySpinner(true);
     axios
       .post(`${getBackendURL()}/predict`, {
         jobtitle: jobtitle,
@@ -97,6 +103,7 @@ function App() {
         minimumYOE: minimumYOE,
       })
       .then((resp) => {
+        setDisplaySpinner(false);
         setPMinSal(resp.data.pMinSal);
         setPMaxSal(resp.data.pMaxSal);
       }); // eslint-disable-next-line
@@ -150,9 +157,9 @@ function App() {
           {stagingFrontendURL.indexOf(window.location.hostname) !== -1 && (
             <span className="EmployerContainer">STAGING</span>
           )}
-          {developmentFrontendURL.indexOf(window.location.hostname) !== -1 && (
-            <span className="EmployerContainer">DEVELOPMENT</span>
-          )}
+          {(developmentFrontendURL1.indexOf(window.location.hostname) !== -1 ||
+            developmentFrontendURL2.indexOf(window.location.hostname) !==
+              -1) && <span className="EmployerContainer">DEVELOPMENT</span>}
         </div>
         <div className="App-header-right">
           <div
@@ -216,21 +223,27 @@ function App() {
                 <Legend />
                 <Tooltip />
                 <Line
-                  dataKey="R Square Value"
-                  stroke="black"
+                  dataKey="Max R² Square Value"
+                  stroke="blue"
+                  activeDot={{ r: 8 }}
+                />
+                <Line
+                  dataKey="Min R² Square Value"
+                  stroke="Red"
                   activeDot={{ r: 8 }}
                 />
               </LineChart>
             </ResponsiveContainer>
-            <h3>RSME overtime</h3>{" "}
+            <h3>RMSE overtime</h3>{" "}
             <ResponsiveContainer width="100%" aspect={3}>
-              <LineChart data={statsData.RSME}>
+              <LineChart data={statsData.RMSE}>
                 <CartesianGrid />
                 <XAxis dataKey="name" interval={"preserveStartEnd"} />
                 <YAxis></YAxis>
                 <Legend />
                 <Tooltip />
-                <Line dataKey="RSME" stroke="black" activeDot={{ r: 8 }} />
+                <Line dataKey="Max RMSE" stroke="blue" activeDot={{ r: 8 }} />
+                <Line dataKey="Min RMSE" stroke="red" activeDot={{ r: 8 }} />
               </LineChart>
             </ResponsiveContainer>
             <h3>New Job Overtime</h3>
@@ -419,6 +432,9 @@ function App() {
                 onChange={(e) => setMinimumYOE(e.target.value)}
               ></input>
               <label>Min Salary - ${pMinSal.toLocaleString()}</label>
+              {displaySpinner && (
+                <img src="loading_icon.gif" className="spinner" alt="spinner" />
+              )}
               <input
                 type="number"
                 min="0"
@@ -426,6 +442,9 @@ function App() {
                 onChange={(e) => setMinimumSal(e.target.value)}
               ></input>
               <label>Max Salary- ${pMaxSal.toLocaleString()}</label>
+              {displaySpinner && (
+                <img src="loading_icon.gif" className="spinner" alt="spinner" />
+              )}
               <input
                 type="number"
                 min="0"
