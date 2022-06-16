@@ -261,7 +261,8 @@ function App() {
           <iframe
             src="tableau.html"
             title="tableau"
-            style={{ width: "95%", height: "600px" }}
+            frameborder="0"
+            scrolling="no"
           ></iframe>
           {!buttonDisabled && (
             <button

@@ -133,3 +133,8 @@ max-width: 500px;
   width:15px;
   display: inline;
 }
+
+iframe{
+  width:1025px;
+  height: 730px;
+}
