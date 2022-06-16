@@ -291,18 +291,12 @@ function App() {
                 {
                   name: "Title",
                   selector: (row) => row.title,
+                  width: "180px",
                 },
                 {
-                  name: "Description",
-                  selector: (row) => row.description,
-                },
-                {
-                  name: "Skills",
-                  selector: (row) => row.skills,
-                },
-                {
-                  name: "Number Of Vacancies",
+                  name: "Vacancies",
                   selector: (row) => row.numberofvacancies,
+                  width: "80px",
                 },
                 {
                   name: "Category",
@@ -311,10 +305,7 @@ function App() {
                 {
                   name: "Position Levels",
                   selector: (row) => row.positionlevels,
-                },
-                {
-                  name: "Employment Types",
-                  selector: (row) => row.employmenttypes,
+                  width: "150px",
                 },
                 {
                   name: "Posted Company",
@@ -328,10 +319,12 @@ function App() {
                     " - $" +
                     row.maxsalary.toLocaleString() +
                     ")",
+                  width: "150px",
                 },
                 {
                   name: "Remarks",
                   selector: (row) => row.remarks.slice(0, -1),
+                  width: "170px",
                 },
               ]}
               data={outlierData}
