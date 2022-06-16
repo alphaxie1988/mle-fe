@@ -93,9 +93,9 @@ function App() {
     setDisplaySpinner(true);
     axios
       .post(`${getBackendURL()}/predict`, {
-        jobtitle: jobtitle,
-        jobDescription: jobDescription,
-        jobSkills: jobSkills,
+        // jobtitle: jobtitle,
+        // jobDescription: jobDescription,
+        // jobSkills: jobSkills,
         numberofvacancies: numberofvacancies,
         jobCategory: jobCategory,
         jobType: jobType,
@@ -107,7 +107,7 @@ function App() {
         setPMinSal(resp.data.pMinSal);
         setPMaxSal(resp.data.pMaxSal);
       }); // eslint-disable-next-line
-  }, [minimumYOE, jobPositionLevels, numberofvacancies, jobCategory]);
+  }, [minimumYOE, jobPositionLevels, numberofvacancies, jobCategory, jobType]);
 
   //                   _   _  _              _ _
   //   _____ _____ _ _| |_| || |__ _ _ _  __| | |___ _ _
