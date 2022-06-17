@@ -63,7 +63,8 @@ function App() {
   //Stats Page
   const [statsData, setStatsData] = useState([]);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-
+  const [modelData, setModelData] = useState([]);
+  const [selectedRows2, setSelectedRows2] = useState([]);
   //Admin Page
   const [outlierData, setOutlierData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -79,6 +80,11 @@ function App() {
       if (!!statsData)
         axios.get(`${getBackendURL()}/stats`).then((resp) => {
           setStatsData(resp.data);
+        });
+    } else if (window.location.pathname === "/model") {
+      if (!!modelData)
+        axios.get(`${getBackendURL()}/model`).then((resp) => {
+          setModelData(resp.data);
         });
     } else if (window.location.pathname === "/admin") {
       if (!!outlierData)
@@ -118,6 +124,11 @@ function App() {
     // You can set state or dispatch with something like Redux so we can use the retrieved data
     setSelectedRows(selectedRows.map((a) => a.uuid));
   };
+  const handleCheckbox2 = ({ selectedRows }) => {
+    // You can set state or dispatch with something like Redux so we can use the retrieved data
+
+    setSelectedRows2(selectedRows.map((a) => a.id));
+  };
 
   const handleSetAddToTrainOrHide = (selectedRows, action) => {
     axios
@@ -129,6 +140,19 @@ function App() {
         if (resp.data.success) {
           axios.get(`${getBackendURL()}/outlier`).then((resp) => {
             setOutlierData(resp.data);
+          });
+        }
+      });
+  };
+  const handleSetModel = () => {
+    axios
+      .put(`${getBackendURL()}/model`, {
+        payload: selectedRows2[0],
+      })
+      .then((resp) => {
+        if (resp.data.success) {
+          axios.get(`${getBackendURL()}/model`).then((resp) => {
+            setModelData(resp.data);
           });
         }
       });
@@ -165,6 +189,15 @@ function App() {
           <div
             className={
               "menuItem " +
+              (window.location.pathname === "/model" && "selected")
+            }
+            onClick={() => (window.location = "/model")}
+          >
+            Model
+          </div>
+          <div
+            className={
+              "menuItem " +
               (window.location.pathname === "/stats" && "selected")
             }
             onClick={() => (window.location = "/stats")}
@@ -183,7 +216,9 @@ function App() {
           <div
             className={
               "menuItem " +
-              (window.location.pathname === "/predict" && "selected")
+              ((window.location.pathname === "/predict" ||
+                window.location.pathname === "/") &&
+                "selected")
             }
             onClick={() => (window.location = "/predict")}
           >
@@ -261,7 +296,7 @@ function App() {
           <iframe
             src="tableau.html"
             title="tableau"
-            frameborder="0"
+            frameBorder="0"
             scrolling="no"
           ></iframe>
           {!buttonDisabled && (
@@ -345,6 +380,63 @@ function App() {
             >
               Hide from Table
             </button>
+          </div>
+        </div>
+      </div>
+    );
+  } else if (window.location.pathname === "/model") {
+    return (
+      <div className="App">
+        <Header title=" Administrator Page - Review" userName="Admin"></Header>
+        <div className="Content">
+          <div className="dataTableContainer">
+            <DataTable
+              columns={[
+                {
+                  name: "ID",
+                  selector: (row) => row.id,
+                  width: "50px",
+                },
+                {
+                  name: "Created Date",
+                  selector: (row) => row.createdDate,
+                  width: "260px",
+                },
+                {
+                  name: "Min RMSE",
+                  selector: (row) => row.min_rmse.slice(0, -10),
+                  width: "100px",
+                },
+                {
+                  name: "Max RMSE",
+                  selector: (row) => row.max_rmse.slice(0, -10),
+                  width: "100px",
+                },
+                {
+                  name: "Min R Square",
+                  selector: (row) => row.min_rsquare.slice(0, -13),
+                  width: "100px",
+                },
+                {
+                  name: "Max R Square",
+                  selector: (row) => row.max_rsquare.slice(0, -13),
+                  width: "100px",
+                },
+                {
+                  name: "Selected",
+                  selector: (row) => (row.selected === "1" ? "Yes" : ""),
+                  width: "100px",
+                },
+              ]}
+              data={modelData}
+              selectableRows
+              onSelectedRowsChange={handleCheckbox2}
+            />
+            {selectedRows2.length === 1 && (
+              <button onClick={() => handleSetModel(selectedRows2)}>
+                Use selected Model
+              </button>
+            )}
           </div>
         </div>
       </div>
