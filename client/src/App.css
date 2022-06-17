@@ -1,3 +1,6 @@
+body{
+  background-color: #eceff2;
+}
 .App {
   text-align: center;
 }
@@ -122,8 +125,14 @@ max-width: 500px;
   width: 70% !important;
   margin-left: auto;
   margin-right: auto;
-}
 
+}
+.whitebackground{
+  background-color: white;
+  border-radius: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 
 .search-wrapper{
   background-color: white;

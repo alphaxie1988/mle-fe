@@ -250,48 +250,54 @@ function App() {
         <div className="Content">
           <div className="dataTableContainer">
             <h3>R² overtime</h3>
-            <ResponsiveContainer width="100%" aspect={3}>
-              <LineChart data={statsData.rsquarevalue}>
-                <CartesianGrid />
-                <XAxis dataKey="name" interval={"preserveStartEnd"} />
-                <YAxis></YAxis>
-                <Legend />
-                <Tooltip />
-                <Line
-                  dataKey="Max R² Square Value"
-                  stroke="blue"
-                  activeDot={{ r: 8 }}
-                />
-                <Line
-                  dataKey="Min R² Square Value"
-                  stroke="Red"
-                  activeDot={{ r: 8 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="whitebackground">
+              <ResponsiveContainer width="100%" aspect={3}>
+                <LineChart data={statsData.rsquarevalue}>
+                  <CartesianGrid />
+                  <XAxis dataKey="name" interval={"preserveStartEnd"} />
+                  <YAxis></YAxis>
+                  <Legend />
+                  <Tooltip />
+                  <Line
+                    dataKey="Max R² Square Value"
+                    stroke="blue"
+                    activeDot={{ r: 8 }}
+                  />
+                  <Line
+                    dataKey="Min R² Square Value"
+                    stroke="Red"
+                    activeDot={{ r: 8 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
             <h3>RMSE overtime</h3>{" "}
-            <ResponsiveContainer width="100%" aspect={3}>
-              <LineChart data={statsData.RMSE}>
-                <CartesianGrid />
-                <XAxis dataKey="name" interval={"preserveStartEnd"} />
-                <YAxis></YAxis>
-                <Legend />
-                <Tooltip />
-                <Line dataKey="Max RMSE" stroke="blue" activeDot={{ r: 8 }} />
-                <Line dataKey="Min RMSE" stroke="red" activeDot={{ r: 8 }} />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="whitebackground">
+              <ResponsiveContainer width="100%" aspect={3}>
+                <LineChart data={statsData.RMSE}>
+                  <CartesianGrid />
+                  <XAxis dataKey="name" interval={"preserveStartEnd"} />
+                  <YAxis></YAxis>
+                  <Legend />
+                  <Tooltip />
+                  <Line dataKey="Max RMSE" stroke="blue" activeDot={{ r: 8 }} />
+                  <Line dataKey="Min RMSE" stroke="red" activeDot={{ r: 8 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
             <h3>New Job Overtime</h3>
-            <ResponsiveContainer width="100%" aspect={3}>
-              <LineChart data={statsData.newjob}>
-                <CartesianGrid />
-                <XAxis dataKey="name" interval={"preserveStartEnd"} />
-                <YAxis></YAxis>
-                <Legend />
-                <Tooltip />
-                <Line dataKey="New Job" stroke="black" activeDot={{ r: 8 }} />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="whitebackground">
+              <ResponsiveContainer width="100%" aspect={3}>
+                <LineChart data={statsData.newjob}>
+                  <CartesianGrid />
+                  <XAxis dataKey="name" interval={"preserveStartEnd"} />
+                  <YAxis></YAxis>
+                  <Legend />
+                  <Tooltip />
+                  <Line dataKey="New Job" stroke="black" activeDot={{ r: 8 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
           <iframe
             src="tableau.html"
