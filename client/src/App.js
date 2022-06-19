@@ -44,7 +44,7 @@ function App() {
   //  | || (_-</ -_)__ \  _/ _` |  _/ -_)
   //   \_,_/__/\___|___/\__\__,_|\__\___|
 
-  //Predict Page usestate
+  //Predict Page usestate -
   const [jobtitle, setJobtitle] = useState();
   const [jobDescription, setJobDescription] = useState();
   const [jobSkills, setJobSkills] = useState([]);
