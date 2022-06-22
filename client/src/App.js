@@ -259,12 +259,12 @@ function App() {
                   <Legend />
                   <Tooltip />
                   <Line
-                    dataKey="Max R² Square Value"
+                    dataKey="Max R² Value"
                     stroke="blue"
                     activeDot={{ r: 8 }}
                   />
                   <Line
-                    dataKey="Min R² Square Value"
+                    dataKey="Min R² Value"
                     stroke="Red"
                     activeDot={{ r: 8 }}
                   />
@@ -419,12 +419,12 @@ function App() {
                   width: "100px",
                 },
                 {
-                  name: "Min R Square",
+                  name: "Min R²",
                   selector: (row) => row.min_rsquare.slice(0, -13),
                   width: "100px",
                 },
                 {
-                  name: "Max R Square",
+                  name: "Max R²",
                   selector: (row) => row.max_rsquare.slice(0, -13),
                   width: "100px",
                 },
