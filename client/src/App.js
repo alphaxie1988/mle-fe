@@ -444,12 +444,81 @@ function App() {
               </button>
             )}
           </div>
-          <h1>Min Error</h1>
-          <span>Y - Predicted, X - Actual</span>
-          <img src={getBackendURL() + "/minplot.png"} alt="minplot"></img>
-          <h1>Max Error</h1>
-          <span>Y - Predicted, X - Actual</span>
-          <img src={getBackendURL() + "/maxplot.png"} alt="maxplot"></img>
+          <h1
+            style={{
+              position: "relative",
+              top: "120px",
+            }}
+          >
+            Min Error
+          </h1>
+          <span
+            style={{
+              transform: "rotate(-90deg)",
+              position: "relative",
+              left: "-310px",
+              top: "280px",
+            }}
+          >
+            Predicted
+          </span>
+          <span
+            style={{
+              position: "relative",
+              top: "500px",
+            }}
+          >
+            Actual
+          </span>
+          <img
+            style={{
+              padding: "20px",
+              backgroundColor: "white",
+              borderRadius: "30px",
+              margin: "0px",
+            }}
+            width="640"
+            height="480"
+            src={getBackendURL() + "/minplot.png"}
+            alt="minplot"
+          ></img>
+          <h1
+            style={{
+              position: "relative",
+              top: "120px",
+            }}
+          >
+            Max Error
+          </h1>
+          <span
+            style={{
+              transform: "rotate(-90deg)",
+              position: "relative",
+              left: "-310px",
+              top: "280px",
+            }}
+          >
+            Predicted
+          </span>
+          <span
+            style={{
+              position: "relative",
+              top: "500px",
+            }}
+          >
+            Actual
+          </span>
+          <img
+            style={{
+              padding: "20px",
+              backgroundColor: "white",
+              borderRadius: "30px",
+            }}
+            width="640"
+            height="480"
+            src={getBackendURL() + "/maxplot.png"}
+            alt="maxplot"
+          ></img>
         </div>
       </div>
     );
