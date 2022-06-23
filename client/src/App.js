@@ -446,10 +446,10 @@ function App() {
           </div>
           <h1>Min Error</h1>
           <span>Y - Predicted, X - Actual</span>
-          <img src={productionBackendURL + "/minplot.png"} alt="minplot"></img>
+          <img src={getBackendURL() + "/minplot.png"} alt="minplot"></img>
           <h1>Max Error</h1>
           <span>Y - Predicted, X - Actual</span>
-          <img src={productionBackendURL + "/maxplot.png"} alt="maxplot"></img>
+          <img src={getBackendURL() + "/maxplot.png"} alt="maxplot"></img>
         </div>
       </div>
     );
