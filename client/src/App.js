@@ -252,10 +252,7 @@ function App() {
             <h3>R² overtime</h3>
             <div className="whitebackground">
               <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart
-                  isAnimationActive={false}
-                  data={statsData.rsquarevalue}
-                >
+                <LineChart data={statsData.rsquarevalue}>
                   <CartesianGrid />
                   <XAxis dataKey="name" interval={"preserveStartEnd"} />
                   <YAxis></YAxis>
@@ -265,11 +262,13 @@ function App() {
                     dataKey="Max R² Value"
                     stroke="blue"
                     activeDot={{ r: 8 }}
+                    isAnimationActive={false}
                   />
                   <Line
                     dataKey="Min R² Value"
                     stroke="Red"
                     activeDot={{ r: 8 }}
+                    isAnimationActive={false}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -277,27 +276,42 @@ function App() {
             <h3>RMSE overtime</h3>{" "}
             <div className="whitebackground">
               <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart isAnimationActive={false} data={statsData.RMSE}>
+                <LineChart data={statsData.RMSE}>
                   <CartesianGrid />
                   <XAxis dataKey="name" interval={"preserveStartEnd"} />
                   <YAxis></YAxis>
                   <Legend />
                   <Tooltip />
-                  <Line dataKey="Max RMSE" stroke="blue" activeDot={{ r: 8 }} />
-                  <Line dataKey="Min RMSE" stroke="red" activeDot={{ r: 8 }} />
+                  <Line
+                    dataKey="Max RMSE"
+                    stroke="blue"
+                    activeDot={{ r: 8 }}
+                    isAnimationActive={false}
+                  />
+                  <Line
+                    dataKey="Min RMSE"
+                    stroke="red"
+                    activeDot={{ r: 8 }}
+                    isAnimationActive={false}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </div>
             <h3>New Job Overtime</h3>
             <div className="whitebackground">
               <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart isAnimationActive={false} data={statsData.newjob}>
+                <LineChart data={statsData.newjob}>
                   <CartesianGrid />
                   <XAxis dataKey="name" interval={"preserveStartEnd"} />
                   <YAxis></YAxis>
                   <Legend />
                   <Tooltip />
-                  <Line dataKey="New Job" stroke="black" activeDot={{ r: 8 }} />
+                  <Line
+                    dataKey="New Job"
+                    stroke="black"
+                    activeDot={{ r: 8 }}
+                    isAnimationActive={false}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </div>
