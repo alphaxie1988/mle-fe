@@ -291,7 +291,7 @@ function App() {
             <h3>New Job Overtime</h3>
             <div className="whitebackground">
               <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart data={statsData.newjob}>
+                <LineChart isAnimationActive={false} data={statsData.newjob}>
                   <CartesianGrid />
                   <XAxis dataKey="name" interval={"preserveStartEnd"} />
                   <YAxis></YAxis>
