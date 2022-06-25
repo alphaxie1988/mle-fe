@@ -252,7 +252,10 @@ function App() {
             <h3>R² overtime</h3>
             <div className="whitebackground">
               <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart data={statsData.rsquarevalue}>
+                <LineChart
+                  isAnimationActive={false}
+                  data={statsData.rsquarevalue}
+                >
                   <CartesianGrid />
                   <XAxis dataKey="name" interval={"preserveStartEnd"} />
                   <YAxis></YAxis>
@@ -274,7 +277,7 @@ function App() {
             <h3>RMSE overtime</h3>{" "}
             <div className="whitebackground">
               <ResponsiveContainer width="100%" aspect={3}>
-                <LineChart data={statsData.RMSE}>
+                <LineChart isAnimationActive={false} data={statsData.RMSE}>
                   <CartesianGrid />
                   <XAxis dataKey="name" interval={"preserveStartEnd"} />
                   <YAxis></YAxis>
