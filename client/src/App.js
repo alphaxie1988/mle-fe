@@ -18,8 +18,8 @@ import {
 
 const productionFrontendURL = "https://mle-fe-zolecwvnzq-uc.a.run.app/";
 const productionBackendURL = "https://mle-be-zolecwvnzq-uc.a.run.app";
-const stagingFrontendURL = "https://mle-festaging-zolecwvnzq-uc.a.run.app/";
-const stagingBackendURL = "https://mle-bestaging-zolecwvnzq-uc.a.run.app/";
+const stagingFrontendURL = "https://mle-fe-staging-zolecwvnzq-uc.a.run.app/";
+const stagingBackendURL = "https://mle-be-staging-zolecwvnzq-uc.a.run.app/";
 const developmentFrontendURL1 = "http://localhost:3000";
 const developmentFrontendURL2 = "http://127.0.0.1:3000";
 const developmentBackendURL = "http://localhost:8080";
