@@ -163,3 +163,19 @@ font-size: 12px
   bottom: 0;
   right: 0;
 }
+
+.chipbox{
+  padding:5px;
+  border: 1px solid black;
+  margin:10px;
+  width: 270px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  background-color: white;
+}
+
+.featureContainer
+{
+  display:flex;
+  flex-direction: row;
+}
