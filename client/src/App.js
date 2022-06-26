@@ -373,6 +373,11 @@ function App() {
                   width: "250px",
                 },
                 {
+                  name: "YOE",
+                  selector: (row) => row.minimumyearsexperience,
+                  width: "50px",
+                },
+                {
                   name: "Salary",
                   selector: (row) =>
                     "($" +
@@ -419,6 +424,11 @@ function App() {
                   name: "ID",
                   selector: (row) => row.id,
                   width: "50px",
+                },
+                {
+                  name: "Model Name",
+                  selector: (row) => row.modelfilename,
+                  width: "150px",
                 },
                 {
                   name: "Created Date",
