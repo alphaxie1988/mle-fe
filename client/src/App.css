@@ -147,6 +147,17 @@ iframe{
   height: 730px;
 }
 
+.dataTableContainer > div{
+  border-radius: 30px;
+  width:95%;
+  margin-left:2.5%;
+  margin-top:20px;
+}
+.dataTableContainer div{
+font-size: 12px
+}
+
+
 .controll{
   position: fixed;
   bottom: 0;

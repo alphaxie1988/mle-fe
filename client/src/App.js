@@ -350,22 +350,22 @@ function App() {
                 {
                   name: "Title",
                   selector: (row) => row.title,
-                  width: "260px",
+                  width: "250px",
                 },
                 {
                   name: "Vac.",
                   selector: (row) => row.numberofvacancies,
-                  width: "50px",
+                  width: "45px",
                 },
                 {
                   name: "Category",
                   selector: (row) => row.categories,
-                  width: "250px",
+                  width: "240px",
                 },
                 {
                   name: "Position Levels",
                   selector: (row) => row.positionlevels,
-                  width: "180px",
+                  width: "150px",
                 },
                 {
                   name: "Posted Company",
