@@ -5,13 +5,13 @@ steps:
       [
         "build",
         "-t",
-        "gcr.io/$PROJECT_ID/mle-fe_staging:${SHORT_SHA}",
+        "gcr.io/$PROJECT_ID/mle-fe-staging:${SHORT_SHA}",
         "./client",
       ]
 
   # push the container images to Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/$PROJECT_ID/mle-fe_staging:${SHORT_SHA}"]
+    args: ["push", "gcr.io/$PROJECT_ID/mle-fe-staging:${SHORT_SHA}"]
 
   # Deploy container images to Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
@@ -19,9 +19,9 @@ steps:
       [
         "run",
         "deploy",
-        "mle-fe_staging",
+        "mle-fe-staging",
         "--image",
-        "gcr.io/$PROJECT_ID/mle-fe_staging:${SHORT_SHA}",
+        "gcr.io/$PROJECT_ID/mle-fe-staging:${SHORT_SHA}",
         "--region",
         "us-central1",
         "--platform",
@@ -30,4 +30,4 @@ steps:
         "--allow-unauthenticated",
       ]
 images:
-  - gcr.io/$PROJECT_ID/mle-fe_staging:${SHORT_SHA}
+  - gcr.io/$PROJECT_ID/mle-fe-staging:${SHORT_SHA}
