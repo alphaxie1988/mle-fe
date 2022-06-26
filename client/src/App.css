@@ -147,8 +147,35 @@ iframe{
   height: 730px;
 }
 
+.dataTableContainer > div{
+  border-radius: 30px;
+  width:95%;
+  margin-left:2.5%;
+  margin-top:20px;
+}
+.dataTableContainer div{
+font-size: 12px
+}
+
+
 .controll{
   position: fixed;
   bottom: 0;
   right: 0;
+}
+
+.chipbox{
+  padding:5px;
+  border: 1px solid black;
+  margin:10px;
+  width: 270px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  background-color: white;
+}
+
+.featureContainer
+{
+  display:flex;
+  flex-direction: row;
 }

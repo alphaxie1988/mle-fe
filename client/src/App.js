@@ -350,22 +350,22 @@ function App() {
                 {
                   name: "Title",
                   selector: (row) => row.title,
-                  width: "260px",
+                  width: "250px",
                 },
                 {
                   name: "Vac.",
                   selector: (row) => row.numberofvacancies,
-                  width: "50px",
+                  width: "45px",
                 },
                 {
                   name: "Category",
                   selector: (row) => row.categories,
-                  width: "250px",
+                  width: "240px",
                 },
                 {
                   name: "Position Levels",
                   selector: (row) => row.positionlevels,
-                  width: "180px",
+                  width: "150px",
                 },
                 {
                   name: "Posted Company",
@@ -473,6 +473,26 @@ function App() {
               </button>
             )}
           </div>
+          <h1>Feature Importance</h1>
+          <div className="featureContainer">
+            <div style={{ padding: "10px" }}>
+              <h2>Minimum Salary</h2>
+              {modelData[0]?.minfeature.split(",").map((a) => (
+                <div className="chipbox">
+                  {a.replace("_", " ").replace("_", " ").replace("_", " ")}
+                </div>
+              ))}
+            </div>
+            <div style={{ padding: "10px" }}>
+              <h2>Maximum Salary</h2>
+              {modelData[0]?.maxfeature.split(",").map((a) => (
+                <div className="chipbox">
+                  {a.replace("_", " ").replace("_", " ").replace("_", " ")}
+                </div>
+              ))}
+            </div>
+          </div>
+
           <h1
             style={{
               position: "relative",
@@ -514,7 +534,7 @@ function App() {
           <h1
             style={{
               position: "relative",
-              top: "120px",
+              top: "150px",
             }}
           >
             Max Error
@@ -532,7 +552,7 @@ function App() {
           <span
             style={{
               position: "relative",
-              top: "500px",
+              top: "520px",
             }}
           >
             Actual
@@ -542,6 +562,7 @@ function App() {
               padding: "20px",
               backgroundColor: "white",
               borderRadius: "30px",
+              margin: "30px",
             }}
             width="640"
             height="480"
