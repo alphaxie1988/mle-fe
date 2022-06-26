@@ -76,8 +76,7 @@ body{
 }
 
 .dataTableContainer
-{width: 90%;
-  padding: 30px;
+{width: 100%;
 }
 
 
@@ -148,7 +147,8 @@ iframe{
   height: 730px;
 }
 
-.dataTableContainer > div{
-  border-radius: 30px;
-
+.controll{
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
