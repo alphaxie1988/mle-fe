@@ -397,17 +397,19 @@ function App() {
               selectableRows
               onSelectedRowsChange={handleCheckbox}
             />
-            <button
-              className="redButton"
-              onClick={() => handleSetAddToTrainOrHide(selectedRows, "Add")}
-            >
-              Add to Training
-            </button>
-            <button
-              onClick={() => handleSetAddToTrainOrHide(selectedRows, "Hide")}
-            >
-              Hide from Table
-            </button>
+            <div className="controll">
+              <button
+                className="redButton"
+                onClick={() => handleSetAddToTrainOrHide(selectedRows, "Add")}
+              >
+                Add to Training
+              </button>
+              <button
+                onClick={() => handleSetAddToTrainOrHide(selectedRows, "Hide")}
+              >
+                Hide from Table
+              </button>
+            </div>
           </div>
         </div>
       </div>
