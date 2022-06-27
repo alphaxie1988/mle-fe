@@ -322,15 +322,6 @@ function App() {
             frameBorder="0"
             scrolling="no"
           ></iframe>
-          {!buttonDisabled && (
-            <button
-              disabled={buttonDisabled}
-              className="redButton"
-              onClick={() => handleStartNewCrawl()}
-            >
-              Start New Crawl
-            </button>
-          )}
         </div>
       </div>
     );
@@ -414,7 +405,12 @@ function App() {
         </div>
       </div>
     );
-  } else if (window.location.pathname === "/model") {
+  }
+  //  __  __         _     _
+  // |  \/  |___  __| |___| |
+  // | |\/| / _ \/ _` / -_) |
+  // |_|  |_\___/\__,_\___|_|
+  else if (window.location.pathname === "/model") {
     return (
       <div className="App">
         <Header title=" Administrator Page - Review" userName="Admin"></Header>
@@ -518,6 +514,15 @@ function App() {
             src={getBackendURL() + "/maxplot.png"}
             alt="maxplot"
           ></img>
+          {!buttonDisabled && (
+            <button
+              disabled={buttonDisabled}
+              className="redButton"
+              onClick={() => handleStartNewCrawl()}
+            >
+              Start New Crawl
+            </button>
+          )}
         </div>
       </div>
     );
