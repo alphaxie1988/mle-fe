@@ -493,32 +493,6 @@ function App() {
             </div>
           </div>
 
-          <h1
-            style={{
-              position: "relative",
-              top: "120px",
-            }}
-          >
-            Min Error
-          </h1>
-          <span
-            style={{
-              transform: "rotate(-90deg)",
-              position: "relative",
-              left: "-310px",
-              top: "280px",
-            }}
-          >
-            Predicted
-          </span>
-          <span
-            style={{
-              position: "relative",
-              top: "500px",
-            }}
-          >
-            Actual
-          </span>
           <img
             style={{
               padding: "20px",
@@ -531,32 +505,7 @@ function App() {
             src={getBackendURL() + "/minplot.png"}
             alt="minplot"
           ></img>
-          <h1
-            style={{
-              position: "relative",
-              top: "150px",
-            }}
-          >
-            Max Error
-          </h1>
-          <span
-            style={{
-              transform: "rotate(-90deg)",
-              position: "relative",
-              left: "-310px",
-              top: "280px",
-            }}
-          >
-            Predicted
-          </span>
-          <span
-            style={{
-              position: "relative",
-              top: "520px",
-            }}
-          >
-            Actual
-          </span>
+
           <img
             style={{
               padding: "20px",
